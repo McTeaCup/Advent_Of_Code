@@ -9,7 +9,5 @@ def test_find_correct_value():
 
 # CODE
 def find_correct_number(input_list):
-    
-    for index, number in input_list:
-        for 
+    pass
     
