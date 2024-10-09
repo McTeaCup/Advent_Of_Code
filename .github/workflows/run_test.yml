@@ -4,8 +4,6 @@ on: [push]
 jobs:
     run-pytest:
         runs-on: ubuntu-latest
-        env:
-            PYTHONDONTWRITEBYTECODE: 1
         steps:
             - run: |
                 sudo apt install python3
