@@ -3,9 +3,13 @@ on: [push]
 
 jobs:
     run-pytest:
-        runs-on: python
+        runs-on: ubuntu-latest
         continue-on-error: true
         steps:
+            - run: |
+                sudo apt install python3
+                sudo apt install pytest
+            
             - uses: actions/checkout@v4
             - run: pip install pytest
             - run: pytest 2020/*/*.py
