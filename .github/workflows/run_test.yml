@@ -14,7 +14,7 @@ jobs:
       
       - name: Run Tests
         run: |
-          for dir in $(find . -mindepth 2 -maxdepth 2 -type d); do
+          for dir in $(find . -mindepth 2 -maxdepth 2 -type d -not -path '*/.*'); do
             if [ -f "$dir/complete" ]; then
               echo "Running tests in $dir"
               pytest "$dir"/*.py || exit 1  # Running pytest in the folder with Python files
