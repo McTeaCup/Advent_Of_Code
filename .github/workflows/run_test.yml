@@ -8,6 +8,7 @@ jobs:
         run: |
           sudo apt install python3
           sudo pip install pytest
+          sudo pip install pytest-cov
       
       - name: Get Repo
         uses: actions/checkout@v4 
@@ -17,7 +18,7 @@ jobs:
           for dir in $(find . -mindepth 2 -maxdepth 2 -type d -not -path '*/.*'); do
             if [ -f "$dir/complete" ]; then
               echo "Running tests in $dir"
-              pytest "$dir"/*_test.py || exit 1  # Running pytest in the folder with Python files
+              pytest --cov=myproj tests/"$dir"/*_test.py || exit 1  # Running pytest in the folder with Python files
             else
               echo "'complete' file not found in $dir, skipping..."
             fi
