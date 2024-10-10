@@ -5,11 +5,14 @@ jobs:
     run-pytest:
         runs-on: ubuntu-latest
         steps:
-            - run: |
-                sudo apt install python3
-                sudo pip install pytest
-            
-            - uses: actions/checkout@v4
-            - run: pip install pytest
-            - run: pytest 2020/*/*.py
+            - name: Install all python dependencies
+            run: sudo apt install python3
+            run: sudo pip install pytest
+        
+        steps:
+            - name: Test scripts
+            uses: actions/checkout@v4
+            run: cd 2020/day_2
+            if: ${{ hasFiles(complete) != '' }}
+            run: pytest *_main.py
 
