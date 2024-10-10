@@ -2,7 +2,7 @@ name: Run all tests
 on: [push]
 jobs:
   prep-tests:
-    runs-on: ubuntu-latest  # runs-on should be inside each job
+    runs-on: ubuntu-latest
     steps:
       - name: Install Python
         run: |
@@ -10,14 +10,14 @@ jobs:
           sudo pip install pytest
       
       - name: Get Repo
-        uses: actions/checkout@v4  # Corrected this step to use the action properly
+        uses: actions/checkout@v4 
       
       - name: Run Tests
         run: |
           for dir in $(find . -mindepth 2 -maxdepth 2 -type d -not -path '*/.*'); do
             if [ -f "$dir/complete" ]; then
               echo "Running tests in $dir"
-              pytest "$dir"/*.py || exit 1  # Running pytest in the folder with Python files
+              pytest "$dir"/*_test.py || exit 1  # Running pytest in the folder with Python files
             else
               echo "'complete' file not found in $dir, skipping..."
             fi
