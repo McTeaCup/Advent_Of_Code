@@ -1,18 +1,24 @@
 name: Run all tests
 on: [push]
-
 jobs:
-    run-pytest:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Install all python dependencies
-            run: sudo apt install python3
-            run: sudo pip install pytest
-        
-        steps:
-            - name: Test scripts
-            uses: actions/checkout@v4
-            run: cd 2020/day_2
-            if: ${{ hasFiles(complete) != '' }}
-            run: pytest *_main.py
-
+  prep-tests:
+    runs-on: ubuntu-latest  # runs-on should be inside each job
+    steps:
+      - name: Install Python
+        run: |
+          sudo apt install python3
+          sudo apt install pytest
+      
+      - name: Get Repo
+        uses: actions/checkout@v4  # Corrected this step to use the action properly
+      
+      - name: Run Tests
+        run: |
+          for dir in $(find . -mindepth 2 -maxdepth 2 -type d); do
+            if [ -f "$dir/complete" ]; then
+              echo "Running tests in $dir"
+              pytest "$dir"/*.py || exit 1  # Running pytest in the folder with Python files
+            else
+              echo "'complete' file not found in $dir, skipping..."
+            fi
+          done
