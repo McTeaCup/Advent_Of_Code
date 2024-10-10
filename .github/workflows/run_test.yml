@@ -7,7 +7,7 @@ jobs:
       - name: Install Python
         run: |
           sudo apt install python3
-          sudo apt install pytest
+          sudo pip install pytest
       
       - name: Get Repo
         uses: actions/checkout@v4  # Corrected this step to use the action properly
