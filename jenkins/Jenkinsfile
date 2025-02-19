@@ -1,0 +1,15 @@
+pipeline {
+  agent { node { label 'linux-agent' } } 
+  stages {
+    stage('test-version') {
+      steps {
+        sh 'python3 --version'
+      }
+  }
+    stage ('run-tests') {
+      steps {
+        sh 'python3 /2020/day_2/day_2_test.py'
+    }
+  }
+}
+}
